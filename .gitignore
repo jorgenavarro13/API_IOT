@@ -1,0 +1,6 @@
+
+#Dependencies de Node.js
+node_modules/
+
+.vscode/
+
