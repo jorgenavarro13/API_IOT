@@ -12,7 +12,7 @@ const router = express.Router();
 const constants =  require('./constants');
 const sensorTemp = require('./api/sensorTemperatura'); // import del archivo que tiene la lógica de manejo de peticiones
 const sensorUltrasonic = require('./api/sensorUltrasonico');
-//const sensorPIR = require('./api/sensorPIR');
+const sensorPIR = require('./api/sensorPIR');
 const sensorFotoresistencia = require('./api/sensorFotoresistencia');
 
 //Al router le damos todas las urls y los métodos que van a procesar las peticiones web.
@@ -29,6 +29,12 @@ router.post(constants.contextURL + constants.api + constants.postUltrasonicSenso
 router.get(constants.contextURL + constants.api + constants.getFotoresistenciaSensor, sensorFotoresistencia.getLogFotoresistencias);
 router.post(constants.contextURL + constants.api + constants.getFotoresistenciaSensorByDate, sensorFotoresistencia.getFotorresistenciaBetweenDates);
 router.post(constants.contextURL + constants.api + constants.postFotoresistenciaSensor, sensorFotoresistencia.insertNewFotoresistencia);
+
+//PIR Sensor Endpoints
+router.get(constants.contextURL + constants.api + constants.getPIRSensor, sensorPIR.getLogPIR);
+router.post(constants.contextURL + constants.api + constants.getPIRSensorByDate, sensorPIR.getPIRBetweenDates);
+router.post(constants.contextURL + constants.api + constants.postPIRSensor, sensorPIR.insertNewPIR);
+
 
 //le decimos a Node que queremos hacer uso de nuestro router en otros archivos (como por ejemplo, app.js)
 module.exports = router;

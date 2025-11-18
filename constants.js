@@ -14,6 +14,7 @@
 
 /*
  * Configuración local de la Base de Datos MySQL
+hola
  */
 const dbHost = "localhost";
 const dbPort = "3307";
@@ -29,7 +30,7 @@ const serverPort = 3000 // puerto de ejecución del servidor web
 const contextURL = '/iot'; //Contexto del proyecto
 const api = '/api'; // Contexto del API
 
-//SENSOR 1 URLS. Configurar URLS por cada sensor.
+//SENSOR Temperatura. Configurar URLS por cada sensor.
 const getTemperatureSensor = '/getTemperatures';
 const getTemperatureSensorByDate = '/getTemperaturesBetweenDates';
 const postTemperatureSensor = '/insertTemperature'; //Implemented Endpoint URL
@@ -44,6 +45,10 @@ const getFotoresistenciaSensor = '/getFotoresistencias';
 const getFotoresistenciaSensorByDate = '/getFotoresistenciasBetweenDates';
 const postFotoresistenciaSensor = '/insertFotoresistencia';
 
+//SENSOR PIR URLS. Configurar URLS por cada sensor.
+const getPIRSensor = '/getPIR';
+const getPIRSensorByDate = '/getPIRByDate';
+const postPIRSensor = '/insertPIR';
 
 /*
  * DB Queries
@@ -102,6 +107,9 @@ module.exports = {
   selectFotoresistenciaByDate,
 
   // PIR Endpoints & Queries
+   getPIRSensor,
+   getPIRSensorByDate,
+   postPIRSensor,
   insertPIR,
   selectPIR,
   selectPIRByDate,

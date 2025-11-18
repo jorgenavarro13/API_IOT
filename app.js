@@ -23,6 +23,7 @@ const cors = require('cors');
 const router = require('./router')
 
 
+
 /**
  * Paso 1: Crear el servidor con Express.
  */
@@ -51,6 +52,16 @@ app.use(router);
 app.get('/', (req, res) => {
     res.send('Hello world!')
 });
+
+app.get('/status', (req, res) => {
+    res.send('API is running')
+});
+
+app.get('/info', (req, res) => {
+    res.send('Proyecto de IoT - API RESTful - 2024')
+}
+);
+
 
 //arranque del server 
 app.listen(port, () => {
