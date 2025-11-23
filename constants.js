@@ -16,11 +16,16 @@
  * Configuración local de la Base de Datos MySQL
 hola
  */
-const dbHost = "localhost";
-const dbPort = "3307";
-const dbUser = "root";
-const dbPass = "root";
-const dbName = "iot";
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const dbHost = process.env.AIVEN_HOST;
+const dbPort = process.env.AIVEN_PORT;
+const dbUser = process.env.AIVEN_USER;
+const dbPass = process.env.AIVEN_PASSWORD;
+const dbName = process.env.AIVEN_DATABASE;
+
 
 
 /*
