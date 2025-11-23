@@ -50,6 +50,11 @@ const getPIRSensor = '/getPIR';
 const getPIRSensorByDate = '/getPIRByDate';
 const postPIRSensor = '/insertPIR';
 
+//SENSOR General (All sensors) URLS. Configurar URLS por cada sensor.
+const getAllSensors = '/getAllSensors';
+const getAllSensorsByDate = '/getAllSensorsByDate';
+const postAllSensors = '/insertAllSensors';
+
 /*
  * DB Queries
  * Agregar queries por sensor.
@@ -73,6 +78,11 @@ const selectFotoresistencia = 'SELECT * FROM fotoresistencia';
 const insertPIR = 'INSERT INTO pir (estado) values (?)';
 const selectPIRByDate = 'SELECT * FROM pir WHERE fecha between ? and ?';
 const selectPIR = 'SELECT * FROM pir';
+
+//All Sensors Queries
+const insertSensors = 'INSERT INTO trashi (level, temperature, light, gas, open) values (?,?,?,?,?)';
+const selectSensorsByDate = 'SELECT * FROM trashi WHERE fecha between ? and ?';
+const selectSensors = 'SELECT * FROM trashi';
 
 
 module.exports = {
@@ -113,4 +123,12 @@ module.exports = {
   insertPIR,
   selectPIR,
   selectPIRByDate,
+
+  // All Sensors Endpoints & Queries
+  getAllSensors,
+  getAllSensorsByDate,
+  postAllSensors,
+  insertSensors,
+  selectSensors,
+  selectSensorsByDate,
 }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard IoT</title>
+
+    <!-- BOOTSTRAP -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet">
+
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+
+    <h1 class="text-center mb-4">Dashboard IoT – Sensores</h1>
+
+    <!-- FILA 1 -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">Nivel (level)</div>
+                <div class="card-body">
+                    <canvas id="chartLevel"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">Temperatura</div>
+                <div class="card-body">
+                    <canvas id="chartTemp"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FILA 2 -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">Luz (light)</div>
+                <div class="card-body">
+                    <canvas id="chartLight"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">Gas</div>
+                <div class="card-body">
+                    <canvas id="chartGas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FILA 3 -->
+    <div class="row mb-4">
+        <div class="col-md-12 mb-3">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">Tapa Abierta (open)</div>
+                <div class="card-body">
+                    <canvas id="chartOpen"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const API_URL = "http://localhost:3000/iot/api/getAllSensors";
+
+let charts = {};
+
+async function obtenerDatos() {
+    const respuesta = await fetch(API_URL);
+    const datos = await respuesta.json();
+    return datos.rows;
+}
+
+function crearChart(idCanvas, label, labels, data) {
+    if (charts[idCanvas]) charts[idCanvas].destroy();
+
+    const ctx = document.getElementById(idCanvas).getContext('2d');
+
+    charts[idCanvas] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: label,
+                data: data,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+async function actualizarDashboard() {
+    const datos = await obtenerDatos();
+
+    const fechas = datos.map(d => new Date(d.fecha).toLocaleString());
+
+    crearChart("chartLevel", "Nivel", fechas, datos.map(d => d.level));
+    crearChart("chartTemp", "Temperatura", fechas, datos.map(d => d.temperature));
+    crearChart("chartLight", "Luz", fechas, datos.map(d => d.light));
+    crearChart("chartGas", "Gas", fechas, datos.map(d => d.gas));
+    crearChart("chartOpen", "Tapa Abierta (0 = no, 1 = sí)", fechas, datos.map(d => d.open));
+}
+
+// Primera carga
+actualizarDashboard();
+
+// Cada 5 segundos refresca data
+setInterval(actualizarDashboard, 5000);
+
+</script>
+
+</body>
+</html>

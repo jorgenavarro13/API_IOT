@@ -14,6 +14,7 @@ const sensorTemp = require('./api/sensorTemperatura'); // import del archivo que
 const sensorUltrasonic = require('./api/sensorUltrasonico');
 const sensorPIR = require('./api/sensorPIR');
 const sensorFotoresistencia = require('./api/sensorFotoresistencia');
+const sensorSensors = require('./api/allSensors');
 
 //Al router le damos todas las urls y los métodos que van a procesar las peticiones web.
 router.get(constants.contextURL + constants.api + constants.getTemperatureSensor, sensorTemp.getLogTemperatures);
@@ -35,6 +36,10 @@ router.get(constants.contextURL + constants.api + constants.getPIRSensor, sensor
 router.post(constants.contextURL + constants.api + constants.getPIRSensorByDate, sensorPIR.getPIRBetweenDates);
 router.post(constants.contextURL + constants.api + constants.postPIRSensor, sensorPIR.insertNewPIR);
 
+//All Sensors Endpoints
+router.get(constants.contextURL + constants.api + constants.getAllSensors, sensorSensors.getLogSensors);
+router.post(constants.contextURL + constants.api + constants.getAllSensorsByDate, sensorSensors.getSensorsBetweenDates);
+router.post(constants.contextURL + constants.api + constants.postAllSensors, sensorSensors.insertNewSensors);
 
 //le decimos a Node que queremos hacer uso de nuestro router en otros archivos (como por ejemplo, app.js)
 module.exports = router;
