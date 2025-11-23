@@ -37,6 +37,21 @@ let pool = mysql.createPool({
   connectionLimit: 10,
 });;
 
+console.log("Intentando conectar al pool de MySQL (debug)...");
+
+pool.getConnection()
+  .then(conn => {
+    console.log("✅ Conexión exitosa al pool MySQL (debug)");
+    console.log("Host:", HOST, "DB:", DB);
+    conn.release();
+  })
+  .catch(err => {
+    console.error("❌ Error al conectar al pool MySQL (debug)");
+    console.error("Código:", err.code);
+    console.error("Mensaje:", err.message);
+    console.error("Host:", HOST, "Port:", PORT);
+  });
+
 /**
  * Class that responds with an object of the result of a database interaction.
  */

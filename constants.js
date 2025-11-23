@@ -17,8 +17,7 @@
 hola
  */
 
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
 
 const dbHost = process.env.AIVEN_HOST;
 const dbPort = process.env.AIVEN_PORT;
