@@ -17,7 +17,7 @@
 hola
  */
 
-require('dotenv').config();
+require('dotenv').config(); //Importante, para leer las variables de entorno desde el archivo .env, no modificar la estructura por nada
 
 const dbHost = process.env.AIVEN_HOST;
 const dbPort = process.env.AIVEN_PORT;
